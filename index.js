@@ -34,7 +34,7 @@ function nextSequence() {
 };
 
 function updateTurnCount() {
-    $('#turn-count').text("Your turn pending: " + userClickedPattern.length + ' / ' + gamePattern.length);
+    $('#turn-count').text("Moves left: " + userClickedPattern.length + '/' + gamePattern.length);
 }
 
 function handleButtonClick(userChosenColour) {
