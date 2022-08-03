@@ -1,23 +1,29 @@
 var buttonColors = ["red", "blue", "green", "yellow"], gamePattern = [], userClickedPattern = [], level = 0;
+
 function startOver() {
     level = 0;
     gamePattern = [];
     userClickedPattern = [];
 }
+
 function playSound(name) {
     var sound = new Audio("sounds/" + name + ".mp3");
     sound.play();
 }
+
 function animatePress(name) {
     $("#" + name).addClass("pressed");
     setTimeout(function () {
         $("#" + name).removeClass("pressed");
     }, 100);
 }
+
 function nextSequence() {
     var randomNumber = Math.floor(Math.random() * 4);
     var randomChosenColour = buttonColors[randomNumber];
     gamePattern.push(randomChosenColour);
+
+    updateTurnCount();
 
     $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
 
@@ -26,8 +32,14 @@ function nextSequence() {
     $("#level-title").text("Level " + level);
 
 };
+
+function updateTurnCount() {
+    $('#turn-count').text("Your turn pending: " + userClickedPattern.length + ' / ' + gamePattern.length);
+}
+
 function handleButtonClick(userChosenColour) {
     userClickedPattern.push(userChosenColour);
+    updateTurnCount();
 
     playSound(userChosenColour);
     animatePress(userChosenColour);
@@ -50,6 +62,7 @@ function handleButtonClick(userChosenColour) {
         }, 1000);
     }
 }
+
 $('.btn').click(function () {
     handleButtonClick($(this).attr('id'));
 })
