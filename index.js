@@ -118,6 +118,7 @@ $('.block-btn').click(function () {
 })
 
 $(document).keypress(function (event) {
+    if ($('#congratulationModal').hasClass('show')) return;
     if (!level) nextSequence()
     else {
         if (event.key === "g" || event.key === "G") {
@@ -134,4 +135,12 @@ $(document).keypress(function (event) {
         }
     }
 
+});
+//diable saveBtn is userName input field is empty
+$('#userName').keyup(function () {
+    if ($(this).val()) {
+        $('#saveBtn').prop('disabled', false);
+    } else {
+        $('#saveBtn').prop('disabled', true);
+    }
 });

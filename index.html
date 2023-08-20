@@ -54,7 +54,7 @@
         type="button"
         class="btn btn-primary"
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        data-bs-target="#leaderboardModal"
       >
         Check Leaderboard
       </button>
@@ -63,15 +63,15 @@
     <!-- add bootstrap modal with list of user and rank  -->
     <div
       class="modal fade"
-      id="exampleModal"
+      id="leaderboardModal"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="leaderboardModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Leaderboard</h5>
+            <h5 class="modal-title" id="leaderboardModalLabel">Leaderboard</h5>
             <button
               type="button"
               class="btn-close"
@@ -92,16 +92,6 @@
               <tbody id="leaderboard"></tbody>
             </table>
           </div>
-
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -110,18 +100,23 @@
       class="modal fade"
       id="congratulationModal"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="leaderboardModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Congratulations! You made it to the leaderboard!
-            </h5>
-          </div>
-
           <div class="modal-body">
+            <div class="d-flex justify-content-between">
+              <h5 class="modal-title">
+                Congratulations! You made it to the leaderboard!
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
             <form>
               <div class="mb-3 d-flex flex-column justify-content-start">
                 <label
@@ -143,9 +138,11 @@
           <div class="modal-footer">
             <button
               type="button"
+              id="saveBtn"
               class="btn btn-primary"
               data-bs-dismiss="modal"
               onclick="addToLeaderBoard(document.getElementById('userName').value)"
+              disabled
             >
               Save
             </button>
