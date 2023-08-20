@@ -37,6 +37,47 @@ function updateTurnCount() {
     $('#turn-count').text("Moves left: " + userClickedPattern.length + '/' + gamePattern.length);
 }
 
+
+function updateLeaderBoard() {
+    const leaderboardList = localStorage.getItem("leaderBoardList");
+    if (!leaderboardList) addToLeaderBoard()
+    const leaderboardRank = JSON.parse(leaderboardList);
+    var leaderboard = $('#leaderboard');
+    leaderboard.empty();
+    leaderboardRank.forEach((user, idx) => {
+        var row = $('<tr>');
+        var rank = $('<td>');
+        rank.text(idx + 1);
+        var name = $('<td>');
+        name.text(user.name);
+        var level = $('<td>');
+        level.text(user.level);
+        row.append(rank);
+        row.append(name);
+        row.append(level);
+        leaderboard.append(row);
+    });
+}
+function addToLeaderBoard(userName) {
+    const leaderboardList = localStorage.getItem("leaderBoardList");
+    if (leaderboardList) {
+        const user = {
+            name: userName || 'Anonymous',
+            level: level
+        }
+        const leaderboardRank = JSON.parse(leaderboardList);
+        leaderboardRank.push(user);
+        leaderboardRank.sort((a, b) => b.level - a.level);
+        if (leaderboardRank.length > 3) leaderboardRank.pop();
+        localStorage.setItem("leaderBoardList", JSON.stringify(leaderboardRank));
+    } else {
+        localStorage.setItem("leaderBoardList", JSON.stringify([{ name: "", level: "" }]));
+    }
+    updateLeaderBoard();
+    startOver();
+}
+
+
 function handleButtonClick(userChosenColour) {
     userClickedPattern.push(userChosenColour);
     updateTurnCount();
@@ -45,6 +86,7 @@ function handleButtonClick(userChosenColour) {
     animatePress(userChosenColour);
     //check answer
     var clickIdx = userClickedPattern.length - 1
+
     if (userClickedPattern[clickIdx] !== gamePattern[clickIdx]) {
         playSound("wrong");
         $("body").addClass("game-over");
@@ -52,7 +94,15 @@ function handleButtonClick(userChosenColour) {
             $("body").removeClass("game-over");
         }, 200);
         $("#level-title").text("Game Over, Press Any Key to Restart");
-        startOver();
+        const leaderboardList = localStorage.getItem("leaderBoardList");
+        const leaderboardRank = JSON.parse(leaderboardList);
+        if (level > (leaderboardRank[leaderboardRank.length - 1].level || 0) || leaderboardRank.length < 3) {
+            $('#congratulationModal').modal('show');
+        }
+        else {
+            updateLeaderBoard();
+            startOver();
+        }
         return;
     }
     if (userClickedPattern.length === gamePattern.length) {
