@@ -48,8 +48,7 @@
         </div>
       </div>
     </div>
-    <!-- show modal for leaderboad on button click using bootstrap -->
-    <div class="d-flex justify-content-end px-4">
+    <div class="d-flex justify-content-end px-4 mb-1">
       <button
         type="button"
         class="btn btn-primary"
@@ -60,7 +59,7 @@
       </button>
     </div>
 
-    <!-- add bootstrap modal with list of user and rank  -->
+    <!-- Bootstrap modal with list of users and rank  -->
     <div
       class="modal fade"
       id="leaderboardModal"
@@ -96,6 +95,7 @@
       </div>
     </div>
 
+    <!-- Congratulation modal -->
     <div
       class="modal fade"
       id="congratulationModal"
@@ -107,17 +107,19 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="d-flex justify-content-between">
-              <h5 class="modal-title">
-                Congratulations! You made it to the leaderboard!
+              <h5 class="modal-title me-5">
+                Well done! You've achieved a spot in the top 3 on the
+                leaderboard 🎉🎊
               </h5>
               <button
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                onclick="startOver()"
               ></button>
             </div>
-            <form>
+            <form class="px-3">
               <div class="mb-3 d-flex flex-column justify-content-start">
                 <label
                   for="recipient-name"
@@ -131,21 +133,20 @@
                   placeholder="Your name"
                   autocomplete="off"
                 />
+                <div class="d-flex justify-content-end pt-4">
+                  <button
+                    type="button"
+                    id="saveBtn"
+                    class="btn btn-primary px-4"
+                    data-bs-dismiss="modal"
+                    onclick="addToLeaderBoard(document.getElementById('userName').value)"
+                    disabled
+                  >
+                    Save
+                  </button>
+                </div>
               </div>
             </form>
-          </div>
-
-          <div class="modal-footer">
-            <button
-              type="button"
-              id="saveBtn"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-              onclick="addToLeaderBoard(document.getElementById('userName').value)"
-              disabled
-            >
-              Save
-            </button>
           </div>
         </div>
       </div>

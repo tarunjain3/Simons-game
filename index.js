@@ -50,6 +50,7 @@ function updateLeaderBoard() {
         rank.text(idx + 1);
         var name = $('<td>');
         name.text(user.name);
+        name.addClass('text-capitalize');
         var level = $('<td>');
         level.text(user.level);
         row.append(rank);
