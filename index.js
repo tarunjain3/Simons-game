@@ -63,7 +63,7 @@ function handleButtonClick(userChosenColour) {
     }
 }
 
-$('.btn').click(function () {
+$('.block-btn').click(function () {
     handleButtonClick($(this).attr('id'));
 })
 
